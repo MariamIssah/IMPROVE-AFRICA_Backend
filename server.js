@@ -13,6 +13,10 @@ const PORT = process.env.PORT || 3004;
 const mongoose = require('mongoose');
 const Product = require('./models/Product');
 const bodyParser = require('body-parser');
+const { config: dotenvConfig } = require('dotenv');
+
+// Load environment variables
+dotenvConfig();
 
 // Email configuration
 const transporter = nodemailer.createTransport({
@@ -800,8 +804,17 @@ async function sendOrderEmails(orderDetails) {
   }
 }
 
-// Start the server
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-  console.log(`Visit http://localhost:${PORT} to view all products`);
-}); 
+// Connect to MongoDB with better error handling
+mongoose.connect(process.env.MONGODB_URI)
+  .then(() => {
+    console.log('Connected to MongoDB successfully');
+    // Start the server only after successful MongoDB connection
+    app.listen(PORT, () => {
+      console.log(`Server running on port ${PORT}`);
+      console.log(`Visit http://localhost:${PORT} to view all products`);
+    });
+  })
+  .catch(err => {
+    console.error('Failed to connect to MongoDB:', err);
+    process.exit(1); // Exit the process if MongoDB connection fails
+  }); 
