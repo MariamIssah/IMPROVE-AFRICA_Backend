@@ -1,0 +1,34 @@
+{
+    "name": "Premium Organic Cocoa Beans",
+    "description": "High-quality organic cocoa beans from the Western region of Ghana. These beans are carefully harvested and fermented to achieve the perfect chocolate flavor profile.",
+    "price": 12.50,
+    "unit": "kg",
+    "quantity": 500,
+    "category": "Spices",
+    "subcategory": "Cocoa",
+    "images": [
+        "https://example.com/images/cocoa-beans-1.jpg",
+        "https://example.com/images/cocoa-beans-2.jpg"
+    ],
+    "isOrganic": true,
+    "certification": "USDA Organic",
+    "origin": {
+        "region": "Western",
+        "city": "Takoradi"
+    },
+    "seller": "507f1f77bcf86cd799439011", // MongoDB ObjectId of the seller
+    "rating": 4.8,
+    "reviews": [
+        {
+            "user": "507f1f77bcf86cd799439012",
+            "rating": 5,
+            "comment": "Excellent quality cocoa beans, perfect for our chocolate production.",
+            "date": "2024-03-20T10:30:00Z"
+        }
+    ],
+    "harvestDate": "2024-02-15T00:00:00Z",
+    "expiryDate": "2024-12-15T00:00:00Z",
+    "status": "available",
+    "createdAt": "2024-03-01T08:00:00Z",
+    "updatedAt": "2024-03-23T15:30:00Z"
+} 
