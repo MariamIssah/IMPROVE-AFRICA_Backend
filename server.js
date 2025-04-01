@@ -28,28 +28,42 @@ const transporter = nodemailer.createTransport({
 });
 
 // Import product data from all categories
-const fruitsProducts = require('C:/Users/awini/IMPROVE-AFRICA/scripts/products/fruits.js');
-const grainsProducts = require('C:/Users/awini/IMPROVE-AFRICA/scripts/products/grains.js');
-const legumesProducts = require('C:/Users/awini/IMPROVE-AFRICA/scripts/products/legumes.js');
-const oilseedsProducts = require('C:/Users/awini/IMPROVE-AFRICA/scripts/products/oilseeds.js');
-const rootsAndTubersProducts = require('C:/Users/awini/IMPROVE-AFRICA/scripts/products/rootsAndTubers.js');
-const spicesProducts = require('C:/Users/awini/IMPROVE-AFRICA/scripts/products/spices.js');
-const vegetablesProducts = require('C:/Users/awini/IMPROVE-AFRICA/scripts/products/vegetables.js');
+let allProducts = [];
 
-// Import utility scripts
-const { fixRegions } = require('C:/Users/awini/IMPROVE-AFRICA/scripts/fixRegions');
-const { createTestUser } = require('C:/Users/awini/IMPROVE-AFRICA/scripts/createTestUser');
+try {
+  // Use absolute path for product data files
+  const scriptsPath = 'C:/Users/awini/IMPROVE-AFRICA/scripts';
+  
+  // Import product data files with absolute paths
+  const fruitsProducts = require(`${scriptsPath}/products/fruits.js`);
+  const grainsProducts = require(`${scriptsPath}/products/grains.js`);
+  const legumesProducts = require(`${scriptsPath}/products/legumes.js`);
+  const oilseedsProducts = require(`${scriptsPath}/products/oilseeds.js`);
+  const rootsAndTubersProducts = require(`${scriptsPath}/products/rootsAndTubers.js`);
+  const spicesProducts = require(`${scriptsPath}/products/spices.js`);
+  const vegetablesProducts = require(`${scriptsPath}/products/vegetables.js`);
 
-// Combine all products
-const allProducts = [
-  ...fruitsProducts,
-  ...grainsProducts,
-  ...legumesProducts,
-  ...oilseedsProducts,
-  ...rootsAndTubersProducts,
-  ...spicesProducts,
-  ...vegetablesProducts
-];
+  // Import utility scripts with absolute paths
+  const { fixRegions } = require(`${scriptsPath}/fixRegions`);
+  const { createTestUser } = require(`${scriptsPath}/createTestUser`);
+
+  // Combine all products
+  allProducts = [
+    ...fruitsProducts,
+    ...grainsProducts,
+    ...legumesProducts,
+    ...oilseedsProducts,
+    ...rootsAndTubersProducts,
+    ...spicesProducts,
+    ...vegetablesProducts
+  ];
+
+  console.log('Successfully loaded product data from scripts');
+} catch (error) {
+  console.log('Warning: Could not load product data from scripts:', error.message);
+  console.log('Starting with empty product list');
+  allProducts = [];
+}
 
 // Store for orders (in-memory database)
 const orders = [];
@@ -63,6 +77,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // Serve static files from both the root directory and the IMPROVE-AFRICA directory
 app.use(express.static(path.join(__dirname)));
 app.use(express.static('C:/Users/awini/IMPROVE-AFRICA'));
+if (process.env.FRONTEND_PATH) {
+  app.use(express.static(process.env.FRONTEND_PATH));
+}
 
 // Main homepage route - redirects to market.html
 app.get('/', (req, res) => {

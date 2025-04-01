@@ -305,5 +305,31 @@ module.exports = [
     },
     rating: 4.8,
     status: "available"
+  },
+  {
+    name: "Fresh Mangoes",
+    category: "fruits",
+    price: 5.00,
+    unit: "kg",
+    quantity: 100,
+    description: "Sweet and juicy fresh mangoes from Ghana",
+    isOrganic: true,
+    origin: {
+      region: "Greater Accra",
+      country: "Ghana"
+    }
+  },
+  {
+    name: "Pineapples",
+    category: "fruits",
+    price: 3.50,
+    unit: "piece",
+    quantity: 50,
+    description: "Sweet and ripe pineapples",
+    isOrganic: true,
+    origin: {
+      region: "Central",
+      country: "Ghana"
+    }
   }
 ]; 
